@@ -10,24 +10,30 @@ var Utils = {
   }
 };
 
+let users = {};
+
 function handleMessage(event) {
   const senderID = event.sender.id
 
-  let promise = Promise.resolve()
-  console.log(senderID);
-  promise = promise.then(() => getUser(senderID))
-  promise.then((response) => {
-    console.log(response)
-  }).catch(err => {
-    console.log(err)
-  })
+  if(!users[senderID])
+  {
+    let promise = Promise.resolve()
+    promise = promise.then(() => getUser(senderID))
+    promise.then((response) => {
+      /***Store the user somewhere ?**/
+      users[senderID] = JSON.parse(response);
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+  
 
   const messageText = event.message.text
   const messageAttachments = event.message.attachments
   if (messageText) {
     client.textConverse(messageText, { conversationToken: senderID }).then((res) => {
       const reply = res.reply()               /* To get the first reply of your bot. */
-      const replies = res.replies             /* An array of all your replies */
+      let replies = res.replies             /* An array of all your replies */
       const action = res.action               /* Get the object action. You can use 'action.done' to trigger a specification action when it's at true. */
 
       if (!reply) {
@@ -46,8 +52,10 @@ function handleMessage(event) {
           if(action.slug == 'insult')
           {
               let rep = new InsultsGenerator().generate()
-              console.log(rep)
               replies.push(rep)
+          }
+          if(action.slug == 'greeting'){
+            replies[0] = replies[0].replace('##username##',users[senderID].first_name)
           }
         }
 
