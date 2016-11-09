@@ -13,7 +13,13 @@ var Utils = {
 function handleMessage(event) {
   const senderID = event.sender.id
 
-  console.log(event.sender)
+  let promise = Promise.resolve()
+  promise = promise.then(() => getUser(senderID))
+  promise.then((response) => {
+    console.log(response)
+  }).catch(err => {
+    console.log(err)
+  })
 
   const messageText = event.message.text
   const messageAttachments = event.message.attachments
