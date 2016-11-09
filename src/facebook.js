@@ -9,7 +9,7 @@ function getUser(id){
     request({
       uri: 'https://graph.facebook.com/v2.6/'+id,
       qs: { access_token: config.pageAccessToken },
-      method: 'POST',
+      method: 'GET',
     }, (error, response) => {
       if (!error && response.statusCode === 200) {
         console.log('Profile retrieved')
