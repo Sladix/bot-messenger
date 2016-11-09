@@ -14,6 +14,7 @@ function handleMessage(event) {
   const senderID = event.sender.id
 
   let promise = Promise.resolve()
+  console.log(senderID);
   promise = promise.then(() => getUser(senderID))
   promise.then((response) => {
     console.log(response)
