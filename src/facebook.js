@@ -1,6 +1,26 @@
 import config from './../config.js'
 import request from 'request'
 
+/*
+* retrieves the FB user
+*/
+function getUser(id){
+   return new Promise((resolve, reject) => {
+    request({
+      uri: 'https://graph.facebook.com/v2.6/'+id,
+      qs: { access_token: config.pageAccessToken },
+      method: 'POST',
+    }, (error, response) => {
+      if (!error && response.statusCode === 200) {
+        console.log('Profile retrieved')
+        resolve()
+      } else {
+        reject(error)
+      }
+    })
+  })
+}
+
 
 /*
 * call to facebbok to send the message
@@ -76,4 +96,5 @@ function replyButton(recipientId, option) {
 module.exports = {
   replyMessage,
   replyButton,
+  getUser
 }
