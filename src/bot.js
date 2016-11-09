@@ -1,4 +1,4 @@
-import { replyMessage, replyButton } from './facebook.js'
+import { replyMessage, replyButton, getUser } from './facebook.js'
 import config from './../config.js'
 import { Client } from 'recastai'
 
