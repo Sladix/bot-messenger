@@ -13,7 +13,7 @@ function getUser(id){
     }, (error, response) => {
       if (!error && response.statusCode === 200) {
         console.log('Profile retrieved')
-        resolve()
+        resolve(response)
       } else {
         reject(error)
       }
