@@ -1,13 +1,15 @@
 import config from './../config.js'
 import request from 'request'
 
+const apiURL = 'https://graph.facebook.com/v2.8/';
+
 /*
 * retrieves the FB user
 */
 function getUser(id){
    return new Promise((resolve, reject) => {
     request({
-      uri: 'https://graph.facebook.com/v2.6/'+id,
+      uri: apiURL+id,
       qs: { access_token: config.pageAccessToken },
       method: 'GET',
     }, (error, response) => {
@@ -29,7 +31,7 @@ function getUser(id){
 function sendMessage(messageData) {
   return new Promise((resolve, reject) => {
     request({
-      uri: 'https://graph.facebook.com/v2.6/me/messages',
+      uri: apiURL+'me/messages',
       qs: { access_token: config.pageAccessToken },
       method: 'POST',
       json: messageData,
