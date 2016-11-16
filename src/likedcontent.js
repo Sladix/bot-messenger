@@ -23,6 +23,8 @@ function MyLikesApi(){
 				let dom = cheerio.load(html);
 				// On extrait tout le bazard
 				let objects = [];
+				console.log(dom('.badge-entry-collection article').length);
+				console.log(dom('.badge-entry-collection'));
 				dom('.badge-entry-collection article').each((i,elem) =>{
 					let data = {
 						url : dom(this).data('entry-url')
