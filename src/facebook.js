@@ -97,6 +97,25 @@ function endTyping(recipientId){
 }
 
 
+function replyList(recipientId, list){
+  const messageData = {
+    recipient: {
+      id: recipientId,
+    },
+    "message": {
+      "attachment": {
+        "type": "template",
+        "payload": {
+            "template_type": "list",
+            "top_element_style": "compact",
+            "elements": list
+          }
+        }
+      }
+  }
+  sendMessage(messageData)
+}
+
 function replyButton(recipientId, option) {
   const messageData = {
     recipient: {

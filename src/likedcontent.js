@@ -23,12 +23,19 @@ function MyLikesApi(){
 				let dom = cheerio.load(html);
 				// On extrait tout le bazard
 				let objects = [];
-				console.log(dom('.badge-entry-collection article').length);
-				console.log(dom('.badge-entry-collection'));
+
 				dom('.badge-entry-collection article').each((i,elem) =>{
+					let image = dom(this).find('img');
 					let data = {
-						url : dom(this).data('entry-url')
+						title : image.attr('alt')
+						image_url : image.attr('src'),
+						buttons : [{
+							title : "voir",
+							type : "web_url",
+							url : dom(this).data('entry-url')
+						}]
 					}
+					objects.push(data);
 				});
 				// On forme un bouton ou un template de contenu
 

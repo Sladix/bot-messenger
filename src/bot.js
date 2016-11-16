@@ -1,4 +1,4 @@
-import { replyMessage, replyButton, getUser, startTyping, endTyping } from './facebook.js'
+import { replyMessage, replyButton, getUser, startTyping, endTyping, replyList } from './facebook.js'
 import config from './../config.js'
 import { Client } from 'recastai'
 import { InsultGenerator } from './insults.js'
@@ -54,7 +54,7 @@ function handleMessage(event) {
             let api = new MyLikesApi();
             promise = promise.then(() => api.getLikedContent());
             promise.then((items)=>{
-              console.log(items);
+              replyList(senderID,items);
             }).catch((err)=>{
               console.log(err)
             })
