@@ -39,10 +39,14 @@ function MyLikesApi(){
 					}
 					objects.push(data);
 				});
+				console.log(objects);
 				// On forme un bouton ou un template de contenu
 
 				// on resolve avec les objets json tout faits
 				resolve(objects);
+			}).catch((err) => {
+				console.log("erreur parse");
+				console.log(err);
 			})
 
 		});
