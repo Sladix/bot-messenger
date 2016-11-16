@@ -4,6 +4,7 @@ import { Client } from 'recastai'
 import { InsultGenerator } from './insults.js'
 import { MyLikesApi } from './likedcontent.js'
 
+
 const client = new Client(config.recastToken, config.language)
 
 let users = {};
@@ -51,8 +52,12 @@ function handleMessage(event) {
           console.log("message handling");
           if(messageText == "ok1234"){
             let api = new MyLikesApi();
-            promise = promise.then(() => api.getMyLikes('9gag'));
-            promise.then((data)=>{console.log(data)}).catch((err)=>{console.log(err)})
+            promise = promise.then(() => api.getLikedContent());
+            promise.then((items)=>{
+              console.log(items);
+            }).catch((err)=>{
+              console.log(err)
+            })
           }
 
           if (action && action.done === true) {
@@ -68,11 +73,15 @@ function handleMessage(event) {
               console.log(replies);
               replies[0] = replies[0].replace('##username##',users[senderID].first_name)
             }
+
           }
           // On balance les réponses
           replies.forEach(rep => {
             promise = promise.then(() => replyMessage(senderID,rep))
           })
+
+          // Si on a des quick replies à mettre on les ajoutes
+
           promise = promise.then(() => endTyping(senderID))
           promise.then(() => {
             console.log('ok')

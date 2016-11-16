@@ -1,4 +1,5 @@
 var http = require('http');
+let cheerio = require('cheerio');
 
 function MyLikesApi(){
 	let options = {
@@ -13,6 +14,28 @@ function MyLikesApi(){
 	}
 	
 	// Define parsers
+
+	this.getLikedContent = function(){
+		let s = '9gag';
+		
+		return new Promise((resolve,reject) => {
+			this.getMyLikes(s).then((html) => {
+				let dom = cheerio.load(data);
+				// On extrait tout le bazard
+				let objects = [];
+				dom('.badge-entry-collection article').each((i,elem) =>{
+					let data = {
+						url : dom(this).data('entry-url')
+					}
+				});
+				// On forme un bouton ou un template de contenu
+
+				// on resolve avec les objets json tout faits
+				resolve(data);
+			})
+
+		});
+	}
 	
 	this.getMyLikes = function(service){
 		return new Promise(function(resolve,reject){
