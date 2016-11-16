@@ -31,7 +31,7 @@ function MyLikesApi(){
 				// On forme un bouton ou un template de contenu
 
 				// on resolve avec les objets json tout faits
-				resolve(data);
+				resolve(objects);
 			})
 
 		});
