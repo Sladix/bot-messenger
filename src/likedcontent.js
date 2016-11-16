@@ -27,13 +27,15 @@ function MyLikesApi(){
 				dom('.badge-entry-collection article').each((i,elem) =>{
 					let image = dom(this).find('img');
 					let data = {
-						title : image.attr('alt')
+						title : image.attr('alt'),
 						image_url : image.attr('src'),
-						buttons : [{
-							title : "voir",
-							type : "web_url",
-							url : dom(this).data('entry-url')
-						}]
+						buttons : [
+							{
+								title : "voir",
+								type : "web_url",
+								url : dom(this).data('entry-url')
+							}
+						]
 					}
 					objects.push(data);
 				});
