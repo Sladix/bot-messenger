@@ -28,6 +28,9 @@ function handleMessage(event) {
     })
   }
   promise = promise.then(() => startTyping(senderID))
+  promise.then(()=>{
+    console.log("started typing");
+  })
 
   const messageText = event.message.text
   const messageAttachments = event.message.attachments
@@ -83,6 +86,9 @@ function handleMessage(event) {
           // Si on a des quick replies à mettre on les ajoutes
 
           promise = promise.then(() => endTyping(senderID))
+          promise.then(()=>{
+            console.log("ended typing");
+          })
           promise.then(() => {
             console.log('ok')
           }).catch(err => {

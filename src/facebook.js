@@ -70,30 +70,42 @@ function replyMessage(recipientId, messageText) {
 }
 
 function startTyping(recipientId){
-  const seenData = {
-    recipient: {
-      id: recipientId,
-    },
-    sender_action: "mark_seen"
-  }
-  const typingData = {
-    recipient: {
-      id: recipientId,
-    },
-    sender_action: "typing_on"
-  }
-  sendMessage(seenData)
-  sendMessage(typingData)
+  return new Promise((resolve, reject) => {
+    const seenData = {
+      recipient: {
+        id: recipientId,
+      },
+      sender_action: "mark_seen"
+    }
+    const typingData = {
+      recipient: {
+        id: recipientId,
+      },
+      sender_action: "typing_on"
+    }
+    sendMessage(seenData).then(()=>{
+      sendMessage(typingData).then(() => {
+        resolve()
+      })  
+    })
+  })
+  
 }
 
 function endTyping(recipientId){
-  const typingData = {
-    recipient: {
-      id: recipientId,
-    },
-    sender_action: "typing_off"
-  }
-  sendMessage(typingData)
+  return new Promise((resolve, reject) => {
+    const typingData = {
+      recipient: {
+        id: recipientId,
+      },
+      sender_action: "typing_off"
+    }
+    sendMessage(typingData).then(() => {
+      resolve()
+    }).catch( err => {
+      reject(err)
+    })
+  })
 }
 
 
