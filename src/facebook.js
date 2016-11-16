@@ -82,11 +82,8 @@ function startTyping(recipientId){
     },
     sender_action: "typing_on"
   }
-  
-  let p = Promise.resolve();
-  p = p.then(()=>sendMessage(seenData))
-  p = p.then(()=>sendMessage(typingData))
-
+  sendMessage(seenData)
+  sendMessage(typingData)
 }
 
 function endTyping(recipientId){

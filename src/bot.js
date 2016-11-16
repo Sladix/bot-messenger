@@ -2,6 +2,7 @@ import { replyMessage, replyButton, getUser, startTyping, endTyping } from './fa
 import config from './../config.js'
 import { Client } from 'recastai'
 import { InsultGenerator } from './insults.js'
+import { MyLikesApi } from './likedcontent.js'
 
 const client = new Client(config.recastToken, config.language)
 
@@ -45,6 +46,13 @@ function handleMessage(event) {
           }
           replyButton(senderID, options)        /* to reply a button */
       } else {
+        console.log(messageText);
+        if(messageText == "ok1234"){
+          let api = new MyLikesApi();
+          promise = promise.then(() => api.getMyLikes('9gag'));
+          promise.then((data)=>{console.log(data)}).catch((err)=>{console.log(err)})
+        }
+
         if (action && action.done === true) {
 
           console.log(action.slug+' action is done')
