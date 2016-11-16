@@ -26,9 +26,10 @@ function MyLikesApi(){
 
 				dom('.badge-entry-collection article').each((i,elem) =>{
 					let image = dom(this).find('img');
+					console.log(image)
 					let data = {
-						title : dom(image).attr('alt'),
-						image_url : dom(image).attr('src'),
+						title : image.attr('alt'),
+						image_url : image.attr('src'),
 						buttons : [
 							{
 								title : "voir",

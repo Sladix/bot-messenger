@@ -1,7 +1,7 @@
 import { replyMessage, replyButton, getUser, startTyping, endTyping, replyList } from './facebook.js'
 import config from './../config.js'
 import { Client } from 'recastai'
-import { InsultGenerator } from './insults.js'
+import { InsultsGenerator } from './insults.js'
 import { MyLikesApi } from './likedcontent.js'
 
 
