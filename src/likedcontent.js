@@ -41,4 +41,4 @@ function MyLikesApi(){
 	return this;
 }
 
-module.export = {MyLikesApi}
+module.exports = { MyLikesApi }

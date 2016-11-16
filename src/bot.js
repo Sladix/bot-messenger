@@ -65,20 +65,20 @@ function handleMessage(event) {
             }
 
             if(action.slug == 'greeting'){
-              console.log(users[senderID]);
+              console.log(replies);
               replies[0] = replies[0].replace('##username##',users[senderID].first_name)
             }
           }
-        })
-        
-        replies.forEach(rep => {
-          promise = promise.then(() => replyMessage(senderID,rep))
-        })
-        promise = promise.then(() => endTyping(senderID))
-        promise.then(() => {
-          console.log('ok')
-        }).catch(err => {
-          console.log(err)
+          // On balance les réponses
+          replies.forEach(rep => {
+            promise = promise.then(() => replyMessage(senderID,rep))
+          })
+          promise = promise.then(() => endTyping(senderID))
+          promise.then(() => {
+            console.log('ok')
+          }).catch(err => {
+            console.log(err)
+          })
         })
       }
     }).catch(err => {
