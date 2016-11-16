@@ -145,6 +145,7 @@ function replyButton(recipientId, option) {
 module.exports = {
   replyMessage,
   replyButton,
+  replyList,
   getUser,
   startTyping,
   endTyping
