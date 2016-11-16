@@ -20,7 +20,7 @@ function MyLikesApi(){
 		
 		return new Promise((resolve,reject) => {
 			this.getMyLikes(s).then((html) => {
-				let dom = cheerio.load(data);
+				let dom = cheerio.load(html);
 				// On extrait tout le bazard
 				let objects = [];
 				dom('.badge-entry-collection article').each((i,elem) =>{
