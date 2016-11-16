@@ -20,12 +20,13 @@ function handleMessage(event) {
     promise = promise.then(() => getUser(senderID))
     promise.then((response) => {
       /***Store the user somewhere ?**/
+      console.log("user fetched");
       users[senderID] = JSON.parse(response);
     }).catch(err => {
       console.log(err)
     })
   }
-  promise = promise.then(() => startTyping(senderID))
+  startTyping(senderID)
   
 
   const messageText = event.message.text
@@ -48,6 +49,7 @@ function handleMessage(event) {
       } else {
         
         promise.then(() => {
+          console.log("message handling");
           if(messageText == "ok1234"){
             let api = new MyLikesApi();
             promise = promise.then(() => api.getMyLikes('9gag'));
