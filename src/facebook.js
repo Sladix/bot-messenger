@@ -69,6 +69,37 @@ function replyMessage(recipientId, messageText) {
   })
 }
 
+function startTyping(recipientId){
+  const seenData = {
+    recipient: {
+      id: recipientId,
+    },
+    sender_action: "mark_seen"
+  }
+  const typingData = {
+    recipient: {
+      id: recipientId,
+    },
+    sender_action: "typing_on"
+  }
+  
+  let p = Promise.resolve();
+  p = p.then(()=>sendMessage(seenData))
+  p = p.then(()=>sendMessage(typingData))
+
+}
+
+function endTyping(recipientId){
+  const typingData = {
+    recipient: {
+      id: recipientId,
+    },
+    sender_action: "typing_off"
+  }
+  sendMessage(typingData)
+}
+
+
 function replyButton(recipientId, option) {
   const messageData = {
     recipient: {
@@ -98,5 +129,7 @@ function replyButton(recipientId, option) {
 module.exports = {
   replyMessage,
   replyButton,
-  getUser
+  getUser,
+  startTyping,
+  endTyping
 }

@@ -1,4 +1,4 @@
-import { replyMessage, replyButton, getUser } from './facebook.js'
+import { replyMessage, replyButton, getUser, startTyping, endTyping } from './facebook.js'
 import config from './../config.js'
 import { Client } from 'recastai'
 import { InsultGenerator } from './insults.js'
@@ -10,9 +10,12 @@ let users = {};
 function handleMessage(event) {
   const senderID = event.sender.id
 
+  /*Define the main promise*/
+  let promise = Promise.resolve()
+
   if(!users[senderID])
   {
-    let promise = Promise.resolve()
+
     promise = promise.then(() => getUser(senderID))
     promise.then((response) => {
       /***Store the user somewhere ?**/
@@ -21,6 +24,7 @@ function handleMessage(event) {
       console.log(err)
     })
   }
+  promise = promise.then(() => startTyping(senderID))
   
 
   const messageText = event.message.text
@@ -55,7 +59,7 @@ function handleMessage(event) {
         }
 
         
-        let promise = Promise.resolve()
+        promise = promise.then(() => endTyping(senderID))
         replies.forEach(rep => {
           promise = promise.then(() => replyMessage(senderID,rep))
         })
