@@ -26,8 +26,7 @@ function handleMessage(event) {
       console.log(err)
     })
   }
-  startTyping(senderID)
-  
+  promise = promise.then(() => startTyping(senderID))
 
   const messageText = event.message.text
   const messageAttachments = event.message.attachments
@@ -66,6 +65,7 @@ function handleMessage(event) {
             }
 
             if(action.slug == 'greeting'){
+              console.log(users[senderID]);
               replies[0] = replies[0].replace('##username##',users[senderID].first_name)
             }
           }
