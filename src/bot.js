@@ -46,31 +46,33 @@ function handleMessage(event) {
           }
           replyButton(senderID, options)        /* to reply a button */
       } else {
-        console.log(messageText);
-        if(messageText == "ok1234"){
-          let api = new MyLikesApi();
-          promise = promise.then(() => api.getMyLikes('9gag'));
-          promise.then((data)=>{console.log(data)}).catch((err)=>{console.log(err)})
-        }
-
-        if (action && action.done === true) {
-
-          console.log(action.slug+' action is done')
-          if(action.slug == 'insult')
-          {
-              let rep = new InsultsGenerator().generate()
-              replies.push(rep)
-          }
-          if(action.slug == 'greeting'){
-            replies[0] = replies[0].replace('##username##',users[senderID].first_name)
-          }
-        }
-
         
-        promise = promise.then(() => endTyping(senderID))
+        promise.then(() => {
+          if(messageText == "ok1234"){
+            let api = new MyLikesApi();
+            promise = promise.then(() => api.getMyLikes('9gag'));
+            promise.then((data)=>{console.log(data)}).catch((err)=>{console.log(err)})
+          }
+
+          if (action && action.done === true) {
+
+            console.log(action.slug+' action is done')
+            if(action.slug == 'insult')
+            {
+                let rep = new InsultsGenerator().generate()
+                replies.push(rep)
+            }
+
+            if(action.slug == 'greeting'){
+              replies[0] = replies[0].replace('##username##',users[senderID].first_name)
+            }
+          }
+        })
+        
         replies.forEach(rep => {
           promise = promise.then(() => replyMessage(senderID,rep))
         })
+        promise = promise.then(() => endTyping(senderID))
         promise.then(() => {
           console.log('ok')
         }).catch(err => {
