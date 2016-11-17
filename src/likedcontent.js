@@ -24,7 +24,7 @@ function MyLikesApi(){
 				// On extrait tout le bazard
 				let objects = [];
 
-				dom('.badge-entry-collection article').slice(0,5).each((i,elem) =>{
+				dom('.badge-entry-collection article').slice(0,4).each((i,elem) =>{
 					let image = dom(elem).find('img').first();
 					let data = {
 						title : image.attr('alt'),
