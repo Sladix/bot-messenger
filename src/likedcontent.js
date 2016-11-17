@@ -25,7 +25,7 @@ function MyLikesApi(){
 				let objects = [];
 
 				dom('.badge-entry-collection article').each((i,elem) =>{
-					let image = dom(this).find('img').first();
+					let image = dom(elem).find('img').first();
 					let data = {
 						title : image.attr('alt'),
 						image_url : image.attr('src'),
@@ -33,12 +33,12 @@ function MyLikesApi(){
 							{
 								title : "voir",
 								type : "web_url",
-								url : dom(this).data('entry-url')
+								url : dom(elem).data('entry-url')
 							}
 						]
 					}
-					console.log(data);
-					objects.push(data);
+					console.log(data)
+					objects.push(data)
 				});
 				// On forme un bouton ou un template de contenu
 

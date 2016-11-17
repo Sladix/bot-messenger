@@ -57,7 +57,7 @@ function handleMessage(event) {
             let api = new MyLikesApi();
             promise = promise.then(() => api.getLikedContent());
             promise.then((items)=>{
-              replyList(senderID,items);
+              replyList(senderID,items).then(()=>{console.log("list sent")}).catch((err)=>{console.log(err)});
             }).catch((err)=>{
               console.log(err)
             })
