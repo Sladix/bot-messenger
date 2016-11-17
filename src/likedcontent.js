@@ -37,6 +37,7 @@ function MyLikesApi(){
 							}
 						]
 					}
+					console.log(data);
 					objects.push(data);
 				});
 				// On forme un bouton ou un template de contenu
