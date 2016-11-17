@@ -25,8 +25,7 @@ function MyLikesApi(){
 				let objects = [];
 
 				dom('.badge-entry-collection article').each((i,elem) =>{
-					let image = dom(this).find('img');
-					console.log(image.attr('alt'));
+					let image = dom(this).find('img').first();
 					let data = {
 						title : image.attr('alt'),
 						image_url : image.attr('src'),
@@ -40,7 +39,6 @@ function MyLikesApi(){
 					}
 					objects.push(data);
 				});
-				console.log(objects);
 				// On forme un bouton ou un template de contenu
 
 				// on resolve avec les objets json tout faits
