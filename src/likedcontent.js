@@ -5,7 +5,7 @@ function MyLikesApi(){
 	let options = {
 		'9gag': {
 		    host: '9gag.com',
-		    path: '/u/lackmybills'
+		    path: '/u/lackmybills/likes'
 		},
 		'imgur' : {
 			host : 'imgur.com',
@@ -15,34 +15,44 @@ function MyLikesApi(){
 	
 	// Define parsers
 
+	this.parse = function(service,html){
+		if(service == '9gag')
+		{
+			return this.parse9gag(html)
+		}
+	}
+
+
+	this.parse9gag = function(html){
+		let dom = cheerio.load(html);
+		// On extrait tout le bazard
+		let objects = [];
+
+		dom('.badge-entry-collection article').slice(0,4).each((i,elem) =>{
+			let image = dom(elem).find('img').first();
+			let data = {
+				title : image.attr('alt'),
+				image_url : image.attr('src'),
+				buttons : [
+					{
+						title : "voir",
+						type : "web_url",
+						url : dom(elem).data('entry-url')
+					}
+				]
+			}
+			objects.push(data)
+		});
+		return objects;
+	}
+
 	this.getLikedContent = function(){
 		let s = '9gag';
 		
 		return new Promise((resolve,reject) => {
 			this.getMyLikes(s).then((html) => {
-				let dom = cheerio.load(html);
-				// On extrait tout le bazard
-				let objects = [];
-
-				dom('.badge-entry-collection article').slice(0,4).each((i,elem) =>{
-					let image = dom(elem).find('img').first();
-					let data = {
-						title : image.attr('alt'),
-						image_url : image.attr('src'),
-						buttons : [
-							{
-								title : "voir",
-								type : "web_url",
-								url : dom(elem).data('entry-url')
-							}
-						]
-					}
-					objects.push(data)
-				});
-				// On forme un bouton ou un template de contenu
-
 				// on resolve avec les objets json tout faits
-				resolve(objects);
+				resolve(this.parse(s,html));
 			}).catch((err) => {
 				console.log("erreur parse");
 				console.log(err);
