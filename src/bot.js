@@ -39,6 +39,7 @@ function handleMessage(event) {
       const reply = res.reply()               /* To get the first reply of your bot. */
       let replies = res.replies             /* An array of all your replies */
       const action = res.action               /* Get the object action. You can use 'action.done' to trigger a specification action when it's at true. */
+      let quickReplies = []
 
       if (!reply) {
           const options = {
@@ -64,12 +65,14 @@ function handleMessage(event) {
             }
 
             if(action.slug == 'bored'){
-              replies = ['Tiens regardes ces trucs :']
+              replies = ['Tiens regardes les derniers trucs qui nous ont fait rire :']
               let api = new MyLikesApi();
               promise = promise.then(() => api.getLikedContent());
               promise.then((items)=>{
                 console.log(items);
+                promise = promise.then(() => startTyping())
                 promise = promise.then(() => replyList(senderID,items))
+                promise = promise.then(() => endTyping())
                 promise.then(()=>{
                   console.log("list sent")
                 }).catch((err)=>{
@@ -90,8 +93,6 @@ function handleMessage(event) {
           replies.forEach(rep => {
             promise = promise.then(() => replyMessage(senderID,rep))
           })
-
-          // Si on a des quick replies à mettre on les ajoutes
 
           promise = promise.then(() => endTyping(senderID))
           promise.then(()=>{
