@@ -40,6 +40,7 @@ function sendMessage(messageData) {
         console.log('All good job is done')
         resolve()
       } else {
+        console.log(response);
         reject(error)
       }
     })
