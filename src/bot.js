@@ -54,23 +54,6 @@ function handleMessage(event) {
         promise.then(() => {
           console.log("message handling");
 
-          if(messageText == "ok1234"){
-            replies = ['Tiens regardes ces trucs :']
-            let api = new MyLikesApi();
-            promise = promise.then(() => api.getLikedContent());
-            promise.then((items)=>{
-              console.log(items);
-              promise = promise.then(() => replyList(senderID,items))
-              promise.then(()=>{
-                console.log("list sent")
-              }).catch((err)=>{
-                console.log(err)
-              });
-            }).catch((err)=>{
-              console.log(err)
-            })
-          }
-
           if (action && action.done === true) {
 
             console.log(action.slug+' action is done')
@@ -78,6 +61,23 @@ function handleMessage(event) {
             {
                 let rep = new InsultsGenerator().generate()
                 replies.push(rep)
+            }
+
+            if(action.slug == 'bored'){
+              replies = ['Tiens regardes ces trucs :']
+              let api = new MyLikesApi();
+              promise = promise.then(() => api.getLikedContent());
+              promise.then((items)=>{
+                console.log(items);
+                promise = promise.then(() => replyList(senderID,items))
+                promise.then(()=>{
+                  console.log("list sent")
+                }).catch((err)=>{
+                  console.log(err)
+                });
+              }).catch((err)=>{
+                console.log(err)
+              })
             }
 
             if(action.slug == 'greeting'){
