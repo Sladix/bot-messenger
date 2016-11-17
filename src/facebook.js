@@ -110,22 +110,29 @@ function endTyping(recipientId){
 
 
 function replyList(recipientId, list){
-  const messageData = {
-    recipient: {
-      id: recipientId,
-    },
-    "message": {
-      "attachment": {
-        "type": "template",
-        "payload": {
-            "template_type": "list",
-            "top_element_style": "compact",
-            "elements": list
+  return new Promise((resolve, reject) => {
+    const messageData = {
+      recipient: {
+        id: recipientId,
+      },
+      message: {
+        attachment: {
+          type: "template",
+          payload: {
+              template_type: "list",
+              top_element_style: "compact",
+              elements: list
+            }
           }
         }
-      }
-  }
-  sendMessage(messageData)
+    }
+    sendMessage(messageData).then(() => {
+      resolve()
+    }).catch( err => {
+      reject(err)
+    })
+  });
+  
 }
 
 function replyButton(recipientId, option) {
