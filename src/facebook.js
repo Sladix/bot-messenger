@@ -54,15 +54,16 @@ function sendMessage(messageData) {
 function replyMessage(recipientId, messageText, quickReplies = []) {
   return new Promise((resolve, reject) => {
 
-    const messageData = {
+    let messageData = {
       recipient: {
         id: recipientId,
       },
       message: {
-        text: messageText,
-        quick_replies : quickReplies
+        text: messageText
       },
     }
+    if(quickReplies.length > 0)
+      messageData.message['quick_replies'] = quickReplies
     sendMessage(messageData).then(() => {
       resolve()
     }).catch( err => {
@@ -113,12 +114,11 @@ function endTyping(recipientId){
 
 function replyList(recipientId, list, quickReplies = []){
   return new Promise((resolve, reject) => {
-    const messageData = {
+    let messageData = {
       recipient: {
         id: recipientId,
       },
       message: {
-        quick_replies : quickReplies,
         attachment: {
           type: "template",
           payload: {
@@ -129,6 +129,9 @@ function replyList(recipientId, list, quickReplies = []){
           }
         }
     }
+    if(quickReplies.length > 0)
+      messageData.message['quick_replies'] = quickReplies
+
     sendMessage(messageData).then(() => {
       resolve()
     }).catch( err => {
