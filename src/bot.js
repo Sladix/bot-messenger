@@ -70,9 +70,9 @@ function handleMessage(event) {
               promise = promise.then(() => api.getLikedContent());
               promise.then((items)=>{
                 console.log(items);
-                promise = promise.then(() => startTyping())
+                promise = promise.then(() => startTyping(senderID))
                 promise = promise.then(() => replyList(senderID,items))
-                promise = promise.then(() => endTyping())
+                promise = promise.then(() => endTyping(senderID))
                 promise.then(()=>{
                   console.log("list sent")
                 }).catch((err)=>{
