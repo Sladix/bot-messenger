@@ -89,10 +89,16 @@ function handleMessage(event) {
               replies[0] = replies[0].replace('##username##',users[senderID].first_name)
             }
 
+            if(action.slug != 'bored'){
+                if(qr[action.slug])
+                  quickReplies = quickReplies
+                else
+                  quickReplies = qr.default
+            }
           }
           // On balance les réponses
           replies.forEach(rep => {
-            promise = promise.then(() => replyMessage(senderID,rep))
+            promise = promise.then(() => replyMessage(senderID,rep,quickReplies))
           })
 
           promise = promise.then(() => endTyping(senderID))
