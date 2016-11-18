@@ -33,12 +33,12 @@ function MyLikesApi(){
 			let image = dom(elem).find('img').first();
 			let data = {
 				title : image.data('original-title'),
-				image_url : image.attr('src'),
+				image_url : 'https:'+image.attr('src'),
 				buttons : [
 					{
 						title : "voir",
 						type : "web_url",
-						url : 'https:'+dom(elem).data('href')
+						url : dom(elem).data('href')
 					}
 				]
 			}
