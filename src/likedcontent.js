@@ -2,7 +2,7 @@ var http = require('http');
 let cheerio = require('cheerio');
 
 function MyLikesApi(){
-	let options = {
+	const options = {
 		'9gag': {
 		    host: '9gag.com',
 		    path: '/u/lackmybills/likes'
@@ -12,6 +12,7 @@ function MyLikesApi(){
 			path : '/user/sladix/favorites'
 		}
 	}
+	const services = ['9gag','imgur'];
 	
 	// Define parsers
 
@@ -72,7 +73,7 @@ function MyLikesApi(){
 	}
 
 	this.getLikedContent = function(){
-		let s = options[Math.floor(Math.random() * options.length)];
+		let s = services[Math.floor(Math.random() * services.length)];
 		console.log("Choosen service : "+s);
 		
 		return new Promise((resolve,reject) => {
