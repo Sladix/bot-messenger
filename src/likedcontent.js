@@ -73,6 +73,7 @@ function MyLikesApi(){
 
 	this.getLikedContent = function(){
 		let s = options[Math.floor(Math.random() * options.length)];
+		console.log("Choosen service : "+s);
 		
 		return new Promise((resolve,reject) => {
 			this.getMyLikes(s).then((html) => {
