@@ -97,7 +97,7 @@ function handleMessage(event) {
             }
 
             if(action.slug == 'website'){
-              replyButton(senderID,websiteButton);
+              promise = promise.then(() => replyButton(senderID,websiteButton))
             }
           }
           // On balance les réponses
