@@ -100,6 +100,10 @@ function handleMessage(event) {
               promise = promise.then(() => replyButton(senderID,websiteButton))
             }
           }
+
+          if(quickReplies.length < 1)
+            quickReplies = qr.default
+          
           // On balance les réponses
           replies.forEach(rep => {
             promise = promise.then(() => replyMessage(senderID,rep,quickReplies))
