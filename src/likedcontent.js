@@ -32,13 +32,13 @@ function MyLikesApi(){
 		dom('.thumbs a').slice(0,4).each((i,elem) => {
 			let image = dom(elem).find('img').first();
 			let data = {
-				title : image.data('original-title'),
+				title : 'Imgur Fun #'+(i+1),
 				image_url : 'https:'+image.attr('src'),
 				buttons : [
 					{
 						title : "voir",
 						type : "web_url",
-						url : 'http://imgur.com'+dom(elem).data('href')
+						url : 'http://imgur.com'+dom(elem).attr('href')
 					}
 				]
 			}
