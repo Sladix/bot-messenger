@@ -3,6 +3,7 @@ import config from './../config.js'
 import { Client } from 'recastai'
 import { InsultsGenerator } from './insults.js'
 import { MyLikesApi } from './likedcontent.js'
+import { qr } from './quickreplies.js'
 
 
 const client = new Client(config.recastToken, config.language)
@@ -71,7 +72,7 @@ function handleMessage(event) {
               promise.then((items)=>{
                 console.log(items);
                 promise = promise.then(() => startTyping(senderID))
-                promise = promise.then(() => replyList(senderID,items))
+                promise = promise.then(() => replyList(senderID,items,qr.bored))
                 promise = promise.then(() => endTyping(senderID))
                 promise.then(()=>{
                   console.log("list sent")
