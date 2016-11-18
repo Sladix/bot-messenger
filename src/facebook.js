@@ -51,7 +51,7 @@ function sendMessage(messageData) {
 * type of message to send back
 */
 
-function replyMessage(recipientId, messageText) {
+function replyMessage(recipientId, messageText, quickReplies = []) {
   return new Promise((resolve, reject) => {
 
     const messageData = {
@@ -60,6 +60,7 @@ function replyMessage(recipientId, messageText) {
       },
       message: {
         text: messageText,
+        quick_replies : quickReplies
       },
     }
     sendMessage(messageData).then(() => {
@@ -110,13 +111,14 @@ function endTyping(recipientId){
 }
 
 
-function replyList(recipientId, list){
+function replyList(recipientId, list, quickReplies = []){
   return new Promise((resolve, reject) => {
     const messageData = {
       recipient: {
         id: recipientId,
       },
       message: {
+        quick_replies : quickReplies,
         attachment: {
           type: "template",
           payload: {

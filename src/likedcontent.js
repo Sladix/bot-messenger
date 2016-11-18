@@ -19,7 +19,32 @@ function MyLikesApi(){
 		if(service == '9gag')
 		{
 			return this.parse9gag(html)
+		}else if(service == 'imgur'){
+			return this.parseImgur(html);
 		}
+	}
+
+	this.parseImgur = function(html){
+		let dom = cheerio.load(html);
+		let objects = [];
+
+		dom('.thumbs a').slice(0,4).each((i,elem) => {
+			let image = dom(elem).find('img').first();
+			let data = {
+				title : image.data('original-title'),
+				image_url : image.attr('src'),
+				buttons : [
+					{
+						title : "voir",
+						type : "web_url",
+						url : dom(elem).data('href')
+					}
+				]
+			}
+			objects.push(data)
+		})
+
+		return objects;
 	}
 
 
@@ -47,7 +72,7 @@ function MyLikesApi(){
 	}
 
 	this.getLikedContent = function(){
-		let s = '9gag';
+		let s = options[Math.floor(Math.random() * options.length)];
 		
 		return new Promise((resolve,reject) => {
 			this.getMyLikes(s).then((html) => {
