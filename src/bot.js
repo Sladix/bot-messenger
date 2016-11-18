@@ -91,7 +91,7 @@ function handleMessage(event) {
 
             if(action.slug != 'bored'){
                 if(qr[action.slug])
-                  quickReplies = quickReplies
+                  quickReplies = qr[action.slug]
                 else
                   quickReplies = qr.default
             }

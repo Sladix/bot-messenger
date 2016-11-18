@@ -20,7 +20,7 @@ const qr = {
 		},
 		{
 			content_type: "text",
-			title:"Insulte moi je me sens trop bien",
+			title:"Insulte moi",
 			payload:"insults"
 			
 		},
