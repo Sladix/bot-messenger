@@ -38,7 +38,7 @@ function MyLikesApi(){
 					{
 						title : "voir",
 						type : "web_url",
-						url : dom(elem).data('href')
+						url : 'https:'+dom(elem).data('href')
 					}
 				]
 			}
