@@ -27,7 +27,7 @@ const qr = {
 		// {
 		// 	content_type: "text",
 		// 	title:"C'est quoi votre dernier son ?",
-		// 	payload:"aboutbbc"
+		// 	payload:"music"
 			
 		// },
 		// {
@@ -58,7 +58,7 @@ const qr = {
 		},
 		{
 			content_type: "text",
-			title:"Niquez vous les boloss",
+			title:"Niquez vous",
 			payload:"insults"
 		},
 

@@ -7,6 +7,13 @@ import { qr } from './quickreplies.js'
 
 
 const client = new Client(config.recastToken, config.language)
+const websiteButton = {
+  messageText: null,
+  buttonTitle: 'BBC Official Website',    /* Option of your button. */
+  buttonUrl: 'https://bigbangalaconspiracy.com/',   /* If you like more option check out ./facebook.js the function replyButton, and look up */
+  buttonType: 'web_url',             /* the facebook doc for button https://developers.facebook.com/docs/messenger-platform/send-api-reference#message */
+  elementsTitle: 'Notre magnifique site web',
+}
 
 let users = {};
 
@@ -43,14 +50,7 @@ function handleMessage(event) {
       let quickReplies = []
 
       if (!reply) {
-          const options = {
-            messageText: null,
-            buttonTitle: 'Tu m\'a cass\u00e9',    /* Option of your button. */
-            buttonUrl: 'https://bigbangalaconspiracy.com/',   /* If you like more option check out ./facebook.js the function replyButton, and look up */
-            buttonType: 'web_url',             /* the facebook doc for button https://developers.facebook.com/docs/messenger-platform/send-api-reference#message */
-            elementsTitle: 'J\'ai rien \u00e0 r\u00e9pondre :(',
-          }
-          replyButton(senderID, options)        /* to reply a button */
+          replyButton(senderID, websiteButton)        /* to reply a button */
       } else {
         
         promise.then(() => {
@@ -94,6 +94,10 @@ function handleMessage(event) {
                   quickReplies = qr[action.slug]
                 else
                   quickReplies = qr.default
+            }
+
+            if(action.slug == 'website'){
+              replyButton(senderID,websiteButton);
             }
           }
           // On balance les réponses
