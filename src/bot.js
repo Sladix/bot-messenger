@@ -60,9 +60,9 @@ function handleMessage(event) {
         promise.then(() => {
           console.log("message handling");
 
-          if(user[senderID.isMessaging]){
-            messagePool.push({message:messageText,sender:user[senderID].first_name});
-            user[senderID].isMessaging = false;
+          if(users[senderID.isMessaging]){
+            messagePool.push({message:messageText,sender:users[senderID].first_name});
+            users[senderID].isMessaging = false;
             replies.push('C\'est dans la teuboi !');
           }
 
@@ -118,7 +118,7 @@ function handleMessage(event) {
                   quickReplies = qr.default
             }
             if(action.slug == 'message'){
-              user[senderID].isMessaging = true;
+              users[senderID].isMessaging = true;
             }
 
             if(action.slug == 'website'){
