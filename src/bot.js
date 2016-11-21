@@ -57,6 +57,12 @@ function handleMessage(event) {
         promise.then(() => {
           console.log("message handling");
 
+          if(user[senderID.isMessaging]){
+            messagePool.push({message:messageText,sender:user[senderID].first_name});
+            user[senderID].isMessaging = false;
+            replies.push('C\'est dans la teuboi !');
+          }
+
           if (action && action.done === true) {
 
             console.log(action.slug+' action is done')
@@ -92,7 +98,15 @@ function handleMessage(event) {
                 console.log(err)
               })
             }
-
+            if(action.slug == 'messagebox'){
+              if(messagePool.length > 0){
+                messagePool.forEach((message) => {
+                  replies.push('Message de '+message.sender+' : '+message.message);
+                })
+              }else{
+                replies.push('Il n\'y a pas de messages dans la boite pour le moment');
+              }
+            }
             if(action.slug == 'greeting'){
               replies[0] = replies[0].replace('##username##',users[senderID].first_name)
             }
@@ -101,11 +115,14 @@ function handleMessage(event) {
               replies.push('Ces derni\u00e8res 24h il y a '+users.length+' personnes qui m\'ont parl\u00e9');
             }
 
-            if(action.slug != 'bored'){
+            if(action.slug != 'bored' && action.slug != 'message'){
                 if(qr[action.slug])
                   quickReplies = qr[action.slug]
                 else
                   quickReplies = qr.default
+            }
+            if(action.slug == 'message'){
+              user[senderID].isMessaging = true;
             }
 
             if(action.slug == 'website'){
