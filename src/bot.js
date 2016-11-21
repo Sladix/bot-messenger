@@ -62,6 +62,7 @@ function handleMessage(event) {
           if(users[senderID].isMessaging){
             messagePool.push({message:messageText,sender:users[senderID].first_name});
             users[senderID].isMessaging = false;
+            replies.length = 0;
             replies.push('C\'est dans la teuboi !');
           }
 
@@ -127,9 +128,6 @@ function handleMessage(event) {
               promise = promise.then(() => replyButton(senderID,websiteButton))
             }
           }
-
-          if(quickReplies.length < 1)
-            quickReplies = qr.default
           
           // On balance les réponses
           replies.forEach(rep => {

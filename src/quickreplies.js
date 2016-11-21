@@ -8,7 +8,7 @@ const qr = {
 		},
 		{
 			content_type: "text",
-			title:"Comment tu vas ?",
+			title:"Je veux laisser un message",
 			payload:"cava"
 			
 		},
@@ -62,6 +62,19 @@ const qr = {
 			payload:"insults"
 		},
 
+	],
+	bothelp : [
+		{
+			content_type: "text",
+			title:"Je m'ennuie",
+			payload:"bored"
+			
+		},
+		{
+			content_type: "text",
+			title:"Vous avez un site ?",
+			payload:"aboutbbc"
+		},
 	]
 }
 
