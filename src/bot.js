@@ -128,7 +128,7 @@ function handleMessage(event) {
             }
           }
 
-          if(action.slug != 'message' && quickReplies.length < 1)
+          if(quickReplies.length < 1)
             quickReplies = qr.default
           
           // On balance les réponses
