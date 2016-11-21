@@ -8,7 +8,7 @@ const qr = {
 		},
 		{
 			content_type: "text",
-			title:"Je veux laisser un message",
+			title:"J'ai un message",
 			payload:"cava"
 			
 		},
@@ -40,7 +40,7 @@ const qr = {
 	bored : [
 		{
 			content_type: "text",
-			title: "Fais moi encore rire !",
+			title: "Fais moi encore rire",
 			payload:"bored_again"
 		},
 		{

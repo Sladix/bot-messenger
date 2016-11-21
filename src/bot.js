@@ -101,7 +101,7 @@ function handleMessage(event) {
             if(action.slug == 'messagebox'){
               if(messagePool.length > 0){
                 messagePool.forEach((message) => {
-                  replies.push('Message de '+message.sender+' : '+message.message);
+                  replies.push(message.sender+' a dit : '+message.message);
                 })
                 messagePool.length = 0;
               }else{
