@@ -15,7 +15,8 @@ const websiteButton = {
   elementsTitle: 'Notre magnifique site web',
 }
 
-let users = {};
+let users = {}
+let messagePool = {}
 
 function handleMessage(event) {
   const senderID = event.sender.id
@@ -68,25 +69,36 @@ function handleMessage(event) {
             if(action.slug == 'bored'){
               replies = ['Tiens regardes les derniers trucs qui nous ont fait rire :']
               let api = new MyLikesApi();
-              promise = promise.then(() => api.getLikedContent());
+              promise = promise.then(() => api.getLikedContent(users[senderID]));
+
               promise.then((items)=>{
-                promise = promise.then(() => startTyping(senderID))
-                promise = promise.then(() => replyList(senderID,items))
-                promise = promise.then(() => replyMessage(senderID,'Et maintenant ?',qr.bored))
-                promise = promise.then(() => endTyping(senderID))
-                promise.then(()=>{
-                  console.log("list sent")
-                }).catch((err)=>{
-                  console.log(err)
-                });
+                if(items.length < 1)
+                {
+                    replies.length = 0;
+                    replies.push('T\'as vu tout ce que je pouvais te proposer pour l\'instant...');
+                }else{
+                  promise = promise.then(() => startTyping(senderID))
+                  promise = promise.then(() => replyList(senderID,items))
+                  promise = promise.then(() => replyMessage(senderID,'Et maintenant ?',qr.bored))
+                  promise = promise.then(() => endTyping(senderID))
+                  promise.then(()=>{
+                    console.log("list sent")
+                  }).catch((err)=>{
+                    console.log(err)
+                  });
+                }
+                
               }).catch((err)=>{
                 console.log(err)
               })
             }
 
             if(action.slug == 'greeting'){
-              console.log(replies);
               replies[0] = replies[0].replace('##username##',users[senderID].first_name)
+            }
+
+            if(action.slug == 'combien'){
+              replies.push('Ces derni\u00e8res 24h il y a '+users.length+' personnes qui m\'ont parl\u00e9');
             }
 
             if(action.slug != 'bored'){
