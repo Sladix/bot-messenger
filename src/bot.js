@@ -59,8 +59,7 @@ function handleMessage(event) {
         
         promise.then(() => {
           console.log("message handling");
-
-          if(users[senderID.isMessaging]){
+          if(users[senderID].isMessaging){
             messagePool.push({message:messageText,sender:users[senderID].first_name});
             users[senderID].isMessaging = false;
             replies.push('C\'est dans la teuboi !');
@@ -94,12 +93,17 @@ function handleMessage(event) {
                 console.log(err)
               })
             }
+
+            if(action.slug == 'message'){
+              users[senderID].isMessaging = true;
+            }
             if(action.slug == 'messagebox'){
               if(messagePool.length > 0){
                 messagePool.forEach((message) => {
                   replies.push('Message de '+message.sender+' : '+message.message);
                 })
               }else{
+                replies.length = 0;
                 replies.push('Il n\'y a pas de messages dans la boite pour le moment');
               }
             }
@@ -117,16 +121,13 @@ function handleMessage(event) {
                 else
                   quickReplies = qr.default
             }
-            if(action.slug == 'message'){
-              users[senderID].isMessaging = true;
-            }
 
             if(action.slug == 'website'){
               promise = promise.then(() => replyButton(senderID,websiteButton))
             }
           }
 
-          if(quickReplies.length < 1)
+          if(action.slug != 'message' && quickReplies.length < 1)
             quickReplies = qr.default
           
           // On balance les réponses
