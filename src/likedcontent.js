@@ -72,26 +72,11 @@ function MyLikesApi(){
 		return objects;
 	}
 
-	this.getLikedContent = function(user){
-		let s;
-		if(!user['viewed'])
-		{
-			s = '9gag';
-			user['viewed'] = [s];
-		}else{
-			for(var ls in services){
-				if(user.viewed.indexOf(services[ls]) === false){
-					s = services[ls];
-				}
-			}
-		}
-		
+	this.getLikedContent = function(){
+		let s = services[Math.floor(Math.random() * services.length)];
 		console.log("Choosen service : "+s);
 		
 		return new Promise((resolve,reject) => {
-			if(user.viewed.length == services.length)
-				resolve([]);
-			
 			this.getMyLikes(s).then((html) => {
 				// on resolve avec les objets json tout faits
 				resolve(this.parse(s,html));

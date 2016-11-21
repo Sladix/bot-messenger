@@ -15,6 +15,9 @@ const websiteButton = {
   elementsTitle: 'Notre magnifique site web',
 }
 
+
+const services = ['9gag','imgur'];
+
 let users = {}
 let messagePool = {}
 
@@ -75,24 +78,17 @@ function handleMessage(event) {
             if(action.slug == 'bored'){
               replies = ['Tiens regardes les derniers trucs qui nous ont fait rire :']
               let api = new MyLikesApi();
-              promise = promise.then(() => api.getLikedContent(users[senderID]));
-
+              promise = promise.then(() => api.getLikedContent());
               promise.then((items)=>{
-                if(items.length < 1)
-                {
-                    replies.length = 0;
-                    replies.push('T\'as vu tout ce que je pouvais te proposer pour l\'instant...');
-                }else{
-                  promise = promise.then(() => startTyping(senderID))
-                  promise = promise.then(() => replyList(senderID,items))
-                  promise = promise.then(() => replyMessage(senderID,'Et maintenant ?',qr.bored))
-                  promise = promise.then(() => endTyping(senderID))
-                  promise.then(()=>{
-                    console.log("list sent")
-                  }).catch((err)=>{
-                    console.log(err)
-                  });
-                }
+                promise = promise.then(() => startTyping(senderID))
+                promise = promise.then(() => replyList(senderID,items))
+                promise = promise.then(() => replyMessage(senderID,'Et maintenant ?',qr.bored))
+                promise = promise.then(() => endTyping(senderID))
+                promise.then(()=>{
+                  console.log("list sent")
+                }).catch((err)=>{
+                  console.log(err)
+                });
                 
               }).catch((err)=>{
                 console.log(err)
