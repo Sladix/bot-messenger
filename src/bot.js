@@ -19,7 +19,7 @@ const websiteButton = {
 const services = ['9gag','imgur'];
 
 let users = {}
-let messagePool = {}
+let messagePool = []
 
 function handleMessage(event) {
   const senderID = event.sender.id
@@ -102,6 +102,7 @@ function handleMessage(event) {
                 messagePool.forEach((message) => {
                   replies.push('Message de '+message.sender+' : '+message.message);
                 })
+                messagePool.length = 0;
               }else{
                 replies.length = 0;
                 replies.push('Il n\'y a pas de messages dans la boite pour le moment');
